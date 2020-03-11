@@ -41,8 +41,20 @@ module.exports = {
                 /**
                  * css-loader：解析css文件中的'@import'依赖关系
                  * style-loader：将webpack处理之后的内容插入到HTML的head代码中
+                 * 
+                 * loader特点：
+                 * (1)单一原则：一个loader只做一件事情
+                 * (2)多个loader会按照从右至左，从下至上的顺序执行
                  */
-                use: ['style-loader', 'css-loader'],
+                // use: ['style-loader', 'css-loader'],
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader'
+                    }
+                ]
             }
         ]
     }
