@@ -8,6 +8,11 @@ module.exports = {
                 "opera >= 11.5" // 欧朋, -o
                 // "chrome >= 36" // 兼容36以上版本不需要添加前缀
             ]
+        },
+        "postcss-pxtorem": {
+            rootValue: 100, // 根元素字体大小
+            propList: ["*"], // 会将所有的px都转换为rem属性
+            // propList: ['height'] // 只转换height的px
         }
     }
 }

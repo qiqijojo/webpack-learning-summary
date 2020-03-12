@@ -60,35 +60,35 @@ module.exports = {
             //     ]
             // }
             // 打包less规则
-            // {
-            //     test: /\.less$/,
-            //     use: [
-            //         {
-            //             loader: 'style-loader' // creates style nodes from JS strings
-            //         }, {
-            //             loader: 'css-loader' // translates CSS into CommonJS
-            //         }, {
-            //             loader: 'less-loader' // compiles Less to CSS
-            //         }, {
-            //             loader: 'postcss-loader'
-            //         }
-            //     ]
-            // }
-            // 打包scss规则
             {
-                test: /\.scss$/,
+                test: /\.less$/,
                 use: [
                     {
                         loader: 'style-loader' // creates style nodes from JS strings
                     }, {
                         loader: 'css-loader' // translates CSS into CommonJS
                     }, {
-                        loader: 'sass-loader' // compiles Less to CSS
+                        loader: 'less-loader' // compiles Less to CSS
                     }, {
-                        loader: 'postcss-loader'
+                        loader: 'postcss-loader' // PostCss是一款使用插件去转换css的工具，postcss有很多可以使用的插件，如：autoprefixer（自动补全浏览器前缀）；postcss-pxtorem：自动把px代码转换为rem
                     }
                 ]
             }
+            // 打包scss规则
+            // {
+            //     test: /\.scss$/,
+            //     use: [
+            //         {
+            //             loader: 'style-loader'
+            //         }, {
+            //             loader: 'css-loader'
+            //         }, {
+            //             loader: 'sass-loader'
+            //         }, {
+            //             loader: 'postcss-loader'
+            //         }
+            //     ]
+            // }
         ]
     }
 }
