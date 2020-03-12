@@ -36,49 +36,59 @@ module.exports = {
                 ]
             },
             // 打包css规则
+            // {
+            //     test: /\.css$/,
+            //     /**
+            //      * css-loader：解析css文件中的'@import'依赖关系
+            //      * style-loader：将webpack处理之后的内容插入到HTML的head代码中
+            //      * 
+            //      * loader特点：
+            //      * (1)单一原则：一个loader只做一件事情
+            //      * (2)多个loader会按照从右至左，从下至上的顺序执行
+            //      */
+            //     // use: ['style-loader', 'css-loader'],
+            //     use: [
+            //         {
+            //             loader: 'style-loader'
+            //         },
+            //         {
+            //             loader: 'css-loader'
+            //         },
+            //         {
+            //             loader: 'postcss-loader'
+            //         }
+            //     ]
+            // }
+            // 打包less规则
+            // {
+            //     test: /\.less$/,
+            //     use: [
+            //         {
+            //             loader: 'style-loader' // creates style nodes from JS strings
+            //         }, {
+            //             loader: 'css-loader' // translates CSS into CommonJS
+            //         }, {
+            //             loader: 'less-loader' // compiles Less to CSS
+            //         }, {
+            //             loader: 'postcss-loader'
+            //         }
+            //     ]
+            // }
+            // 打包scss规则
             {
-                test: /\.css$/,
-                /**
-                 * css-loader：解析css文件中的'@import'依赖关系
-                 * style-loader：将webpack处理之后的内容插入到HTML的head代码中
-                 * 
-                 * loader特点：
-                 * (1)单一原则：一个loader只做一件事情
-                 * (2)多个loader会按照从右至左，从下至上的顺序执行
-                 */
-                // use: ['style-loader', 'css-loader'],
+                test: /\.scss$/,
                 use: [
                     {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
+                        loader: 'style-loader' // creates style nodes from JS strings
+                    }, {
+                        loader: 'css-loader' // translates CSS into CommonJS
+                    }, {
+                        loader: 'sass-loader' // compiles Less to CSS
+                    }, {
                         loader: 'postcss-loader'
                     }
                 ]
             }
-            // 打包less规则
-            // {
-            //     test: /\.less$/,
-            //     use: [{
-            //       loader: 'style-loader' // creates style nodes from JS strings
-            //     }, {
-            //       loader: 'css-loader' // translates CSS into CommonJS
-            //     }, {
-            //       loader: 'less-loader' // compiles Less to CSS
-            //     }]
-            // }
-            // 打包scss规则
-            // {
-            //     test: /\.scss$/,
-            //     use: [
-            //         "style-loader", // 将 JS 字符串生成为 style 节点
-            //         "css-loader", // 将 CSS 转化成 CommonJS 模块
-            //         "sass-loader" // 将 Sass 编译成 CSS，默认使用 Node Sass
-            //     ]
-            // }
         ]
     }
 }
