@@ -1,5 +1,5 @@
-import image from '../images/image.png';
-// import imageCopy from '../images/image-copy.png';
+// import image from '../images/image.png';
+import imageCopy from '../images/image-copy.png';
 import '../css/index.css';
 
 let oImg = document.createElement('img');
