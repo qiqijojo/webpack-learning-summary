@@ -1,4 +1,5 @@
-let hello = () => {
-    console.log('hello');
-}
-hello();
+import "@babel/polyfill";
+
+Promise.resolve().then(() => {
+    console.log('jojo');
+})
