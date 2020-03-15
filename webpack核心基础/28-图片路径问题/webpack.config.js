@@ -136,7 +136,7 @@ module.exports = {
                             name: '[name].[ext]', // 打包后的图片文件名和打包前保持一致
                             outputPath: 'images/', // 作用是将图片统一打包到此文件夹下
                             esModule: false, // 该配置项为图片打包后的默认路径，带default对象，默认为ture，在配置项里将此项改为false即可去掉多余的defalut对象
-                            publicPath: 'file:///Users/jojo/learn-code/webpack学习/webpack核心基础/28-图片路径问题/bundle/images'
+                            publicPath: 'http://127.0.0.1:9000/images'
                         }
                     }
                 ]
