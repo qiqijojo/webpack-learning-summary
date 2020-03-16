@@ -26,10 +26,7 @@ const ProdConfig = {
             minify: { // 告诉htmlPlugin打包之后的html文件需要压缩
                 collapseWhitespace: true // 去掉多余空格
             }
-        }),
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].css'
-        }),
+        })
     ]
 };
 module.exports = Merge(CommonConfig, ProdConfig);
