@@ -40,7 +40,7 @@ function getComponent() {
 
 // 异步加载写法二
 async function getComponent() {
-    const { default: $ } = await import('jquery');
+    const { default: $ } = await import(/* webpackPrefetch: true *//* webpackChunkName: "jquery" */'jquery');
     const $div = $('<div>我是div</div>');
     return $div;
 }
