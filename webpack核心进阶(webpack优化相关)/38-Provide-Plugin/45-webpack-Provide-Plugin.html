@@ -19,6 +19,8 @@ https://www.webpackjs.com/plugins/provide-plugin/
 默认情况下模块中的数据都是私有的, 所以想要使用模块必须先导入模块
 如果说在a.js中想要使用jQuery, 那么就必须在a.js中导入jQuery模块
 如果说在b.js中想要使用jQuery, 那么就必须在b.js中导入jQuery模块
+
+而使用provide-Plugin就不需要到处引入，只需要在webpack中配置一下，每个文件就可以直接使用了。如下：
 new Webpack.ProvidePlugin({
     $: "jquery"
 })
