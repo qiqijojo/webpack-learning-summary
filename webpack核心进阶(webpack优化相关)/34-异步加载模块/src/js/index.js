@@ -24,9 +24,23 @@ oBtn.onclick = () => {
         document.body.appendChild($div[0]); 
     })
 }
+
+
+// 异步加载写法一
+/*
 function getComponent() {
     return import('jquery').then(({ default: $ }) => {
         const $div = $('<div>我是div</div>');
         return $div;
     })
+}
+*/
+
+
+
+// 异步加载写法二
+async function getComponent() {
+    const { default: $ } = await import('jquery');
+    const $div = $('<div>我是div</div>');
+    return $div;
 }

@@ -7,11 +7,11 @@ module.exports = {
     /**
      * 告诉webpack需要对代码进行分割
      */
-    optimization: {
-        splitChunks: {
-            chunks: "all"
-        }
-    },
+    // optimization: {
+    //     splitChunks: {
+    //         chunks: "all"
+    //     }
+    // },
     /**
      * entry: 指定需要打包的文件
      */
