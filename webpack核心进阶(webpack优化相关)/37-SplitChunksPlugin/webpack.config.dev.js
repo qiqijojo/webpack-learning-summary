@@ -24,11 +24,11 @@ const DevConfig = {
         /**
          * 开启热更新，只要开启了热更新就不会自动刷新网页了
          */
-        hot: true,
+        // hot: true,
         /**
          * 哪怕不支持热更新也不要刷新网页
          */
-        hotOnly: true,
+        // hotOnly: true,
         /**
          * 以下配置的含义：以/user为例说明
          * 当我们在代码中发送请求到/user的时候，devServer就会自动将我们请求的地址替换为：
@@ -64,7 +64,7 @@ const DevConfig = {
             // 指定打包的模板，如果不指定，会自动生成一个空的html
             template: './src/index.html',
         }),
-        new Webpack.HotModuleReplacementPlugin(),
+        // new Webpack.HotModuleReplacementPlugin(),
     ]
 }
 
