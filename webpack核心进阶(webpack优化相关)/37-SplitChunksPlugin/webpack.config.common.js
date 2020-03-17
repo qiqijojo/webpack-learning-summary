@@ -9,22 +9,22 @@ module.exports = {
      */
     optimization: {
         splitChunks: {
-            chunks: 'async',
-            minSize: 30000,
-            maxSize: 0,
-            minChunks: 1,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
-            automaticNameDelimiter: '~',
+            chunks: 'all', // 对哪些代码进行分割： async(只分割异步加载模块)、all(对所有导入模块进行分割)
+            minSize: 30000, // 表示被分割的代码体积至少 大于等于 多少个字节才被分割(单位是字节)
+            maxSize: 0, // 需满足：maxSize < minSize
+            minChunks: 1, // 表示至少被引用多少次数才分割，默认为1（限制的是node_modules中的模块次数）
+            maxAsyncRequests: 5, // 异步加载并发最大请求数(保持默认即可)
+            maxInitialRequests: 3, // 最大的初始请求数(保持默认即可)
+            automaticNameDelimiter: '+', // 指定被分割出来的文件名称的连接符
             automaticNameMaxLength: 30,
-            name: true,
+            name: true, // 拆分出来块的名字:(true:指定名称)(false:使用0/1/2...)
             cacheGroups: {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     priority: -10
                 },
                 default: {
-                    minChunks: 2,
+                    minChunks: 2, // 表示至少被引用多少次数才分割，默认为1（限制的不是node_modules中的模块，而是其他自定义模块）
                     priority: -20,
                     reuseExistingChunk: true
                 }
@@ -35,7 +35,8 @@ module.exports = {
      * entry: 指定需要打包的文件
      */
     entry: {
-        main: "./src/js/index.js"
+        main: "./src/js/index.js",
+        // b: "./src/js/b.js"
     },
     /**
      * output: 指定打包之后的文件输出的路径和输出的文件名称
