@@ -13,7 +13,12 @@
 例如: 在index.js中导入了10个模块, 那么哪怕index.js被执行, 也要看是否满足加载条件才去加载
 
 特点:
-对于异步加载的模块无需配置, webpack会自动分割
+对于异步加载的模块无需配置如下代码, webpack会自动分割
+imization: {
+    splitChunks: {
+        chunks: "all"
+    }
+},
 https://webpack.js.org/guides/lazy-loading/
 -->
 </body>
