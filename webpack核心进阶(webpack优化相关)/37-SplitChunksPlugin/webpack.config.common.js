@@ -44,7 +44,7 @@ module.exports = {
                 default: {
                     minChunks: 1, // 表示至少被引用多少次数才分割，默认为1（限制的不是node_modules中的模块，而是其他自定义模块）
                     priority: -20,
-                    reuseExistingChunk: true
+                    reuseExistingChunk: true // 是否复用分割的代码
                 }
             }
         }
