@@ -2,6 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Webpack = require('webpack');
 
 module.exports = {
     /**
@@ -54,7 +55,6 @@ module.exports = {
      */
     entry: {
         main: "./src/js/index.js",
-        // b: "./src/js/b.js"
     },
     /**
      * output: 指定打包之后的文件输出的路径和输出的文件名称
@@ -232,6 +232,9 @@ module.exports = {
         ]),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash:8].css'
+        }),
+        new Webpack.ProvidePlugin({
+            $: 'jquery'
         })
     ]
 }
