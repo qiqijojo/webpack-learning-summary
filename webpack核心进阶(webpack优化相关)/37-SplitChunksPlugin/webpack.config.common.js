@@ -10,7 +10,7 @@ module.exports = {
     optimization: {
         splitChunks: {
             chunks: 'all', // 对哪些代码进行分割： async(只分割异步加载模块)、all(对所有导入模块进行分割)
-            minSize: 30000, // 表示被分割的代码体积至少 大于等于 多少个字节才被分割(单位是字节)
+            minSize: 30, // 表示被分割的代码体积至少 大于等于 多少个字节才被分割(单位是字节)
             maxSize: 0, // 需满足：maxSize < minSize
             minChunks: 1, // 表示至少被引用多少次数才分割，默认为1（限制的是node_modules中的模块次数）
             maxAsyncRequests: 5, // 异步加载并发最大请求数(保持默认即可)
@@ -18,13 +18,31 @@ module.exports = {
             automaticNameDelimiter: '+', // 指定被分割出来的文件名称的连接符
             automaticNameMaxLength: 30,
             name: true, // 拆分出来块的名字:(true:指定名称)(false:使用0/1/2...)
+            /**
+             * cacheGroups：缓存组
+             * 缓存组的作用：将当前文件中导入的模块都缓存起来统一处理
+             */
             cacheGroups: {
+                /**
+                 * vendors：专门用于处理从node_modules中导入的模块
+                 *          会讲所有从node_modules中导入的模块写入到一个文件中去
+                 */
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
-                    priority: -10
+                    priority: -10 // 优先级
                 },
+                /**
+                 * vendors：专门用于处理从任意位置导入的模块
+                 *          会讲所有从任意位置导入的模块写入到一个文件中去
+                 */
+                /**
+                 * 注意点：如果我们导入的模块同时满足了这两个条件，那么就会按照优先级来写入
+                 * 例如：我们导入了jquery，jquery是存放在node_modules目录中，
+                 * 所有满足vendors的条件，也都满足default的条件，但是vendors的条件的优先级高于default的优先级，
+                 * 所以就只会执行vendors的规则，只会写入到vendors对应的文件中去
+                 */
                 default: {
-                    minChunks: 2, // 表示至少被引用多少次数才分割，默认为1（限制的不是node_modules中的模块，而是其他自定义模块）
+                    minChunks: 1, // 表示至少被引用多少次数才分割，默认为1（限制的不是node_modules中的模块，而是其他自定义模块）
                     priority: -20,
                     reuseExistingChunk: true
                 }
