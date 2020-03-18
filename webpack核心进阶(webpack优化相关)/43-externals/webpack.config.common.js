@@ -214,7 +214,15 @@ module.exports = {
         // // 指定导入模块的查找顺序（根据扩展名）
         // extensions: ['.css', '.js', 'json']
     },
+    /**
+     * 告诉webpack哪些第三方模块不需要打包
+     */
     externals: {
+        /**
+         * 以下配置的含义:
+         * 告诉webpack我们在通过import导入jquery的时候, 不是导入node_modules中的jquery
+         * 而是导入我们全局引入的jquery
+         */
         jquery1: 'jQuery',
         lodash1: '_'
     }
