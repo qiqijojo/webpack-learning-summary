@@ -195,5 +195,11 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash:8].css'
         })
-    ]
+    ],
+    resolve: {
+        // 创建 import 或 require 的别名，来确保模块引入变得更简单
+        alias: {
+            'bootstrapcss': 'bootstrap/dist/css/bootstrap.css'
+        }
+    }
 }
