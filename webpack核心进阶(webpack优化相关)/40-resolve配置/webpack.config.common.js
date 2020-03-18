@@ -200,6 +200,8 @@ module.exports = {
         // 创建 import 或 require 的别名，来确保模块引入变得更简单
         alias: {
             'bootstrapcss': 'bootstrap/dist/css/bootstrap.css'
-        }
+        },
+        // 指定模块入口的查找顺序
+        mainFields: ['style', 'main']
     }
 }
