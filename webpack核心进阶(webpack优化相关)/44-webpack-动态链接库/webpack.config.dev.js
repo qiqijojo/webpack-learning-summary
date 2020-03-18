@@ -1,5 +1,4 @@
 const Webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Merge = require('webpack-merge');
 const CommonConfig = require('./webpack.config.common.js');
 
@@ -60,10 +59,6 @@ const DevConfig = {
      * plugin：告诉webpack需要新增一些什么样的功能
      */
     plugins: [
-        new HtmlWebpackPlugin({
-            // 指定打包的模板，如果不指定，会自动生成一个空的html
-            template: './src/index.html',
-        }),
         // new Webpack.HotModuleReplacementPlugin(),
     ]
 }

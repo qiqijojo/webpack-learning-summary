@@ -1,7 +1,6 @@
 const path = require('path');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Merge = require('webpack-merge');
 const CommonConfig = require('./webpack.config.common.js');
 const PurifyCSSPlugin = require("purifycss-webpack");
@@ -33,15 +32,6 @@ const ProdConfig = {
      * plugin：告诉webpack需要新增一些什么样的功能
      */
     plugins: [
-        new HtmlWebpackPlugin({
-            // 指定打包的模板，如果不指定，会自动生成一个空的html
-            template: './src/index.html',
-            // 告诉htmlPlugin打包之后的html文件需要压缩
-            minify: {
-                // 去掉多余空格
-                collapseWhitespace: true
-            }
-        }),
         new PurifyCSSPlugin({
             // 告诉PurifyCSSPlugin需要过滤哪些文件
             paths: glob.sync([

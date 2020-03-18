@@ -3,6 +3,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 module.exports = {
     /**
@@ -187,6 +189,16 @@ module.exports = {
      * plugin：告诉webpack需要新增一些什么样的功能
      */
     plugins: [
+        new HtmlWebpackPlugin({
+            // 指定打包的模板，如果不指定，会自动生成一个空的html
+            template: './src/index.html',
+        }),
+        new AddAssetHtmlPlugin({
+            filepath: path.resolve(__dirname, 'dll/vendors.dll.js')
+        }),
+        new Webpack.DllReferencePlugin({
+            manifest: path.resolve(__dirname, 'dll/vendors.manifest.json')
+        }),
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin([
             {
@@ -213,17 +225,5 @@ module.exports = {
 
         // // 指定导入模块的查找顺序（根据扩展名）
         // extensions: ['.css', '.js', 'json']
-    },
-    /**
-     * 告诉webpack哪些第三方模块不需要打包
-     */
-    // externals: {
-    //     /**
-    //      * 以下配置的含义:
-    //      * 告诉webpack我们在通过import导入jquery的时候, 不是导入node_modules中的jquery
-    //      * 而是导入我们全局引入的jquery
-    //      */
-    //     jquery1: 'jQuery',
-    //     lodash1: '_'
-    // }
+    }
 }
