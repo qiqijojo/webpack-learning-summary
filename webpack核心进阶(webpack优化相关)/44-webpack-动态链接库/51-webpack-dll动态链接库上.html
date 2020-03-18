@@ -44,8 +44,8 @@ plugins: [
 注意点: 这里的name必须和library一致
 
 2.4告诉webpack去哪里查找动态库
-在打包的时候如何webpack回到指定的映射文件中查找对应的动态库,
-找打了那么就不会重新打包动态库中的内容了, 如果找不到才会重新打包
+在打包的时候如何webpack会到指定的映射文件中查找对应的动态库,
+找到了那么就不会重新打包动态库中的内容了, 如果找不到才会重新打包
 new Webpack.DllReferencePlugin({
     manifest: path.resolve(__dirname, 'dll/vendors.manifest.json')
 })
