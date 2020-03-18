@@ -2,6 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Webpack = require('webpack');
 
 module.exports = {
     /**
@@ -195,7 +196,7 @@ module.exports = {
         ]),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash:8].css'
-        })
+        }),
     ],
     resolve: {
         // // 创建 import 或 require 的别名，来确保模块引入变得更简单
