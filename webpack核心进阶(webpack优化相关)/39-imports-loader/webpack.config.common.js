@@ -2,7 +2,6 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const Webpack = require('webpack');
 
 module.exports = {
     /**
@@ -113,6 +112,11 @@ module.exports = {
                         ]
                     ]
                 }
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "imports-loader?$=jquery",
             },
             // 打包iconfont字体图标规则
             {
@@ -232,9 +236,6 @@ module.exports = {
         ]),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash:8].css'
-        }),
-        new Webpack.ProvidePlugin({
-            $: 'jquery'
         })
     ]
 }
