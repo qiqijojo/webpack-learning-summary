@@ -35,6 +35,7 @@ module.exports = {
      * module：告诉webpack如何处理webpack不能够处理的文件
      */
     module: {
+        noParse: /jquery/,
         rules: [
             // 检查编码规范的规则
             {
