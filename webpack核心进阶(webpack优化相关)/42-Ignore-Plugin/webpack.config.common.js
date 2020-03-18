@@ -197,6 +197,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash:8].css'
         }),
+        /**
+         * 以下代码的含义：
+         * 在打包moment这个库的时候，将整个local目录都忽略掉
+         */
         new Webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ],
     resolve: {
