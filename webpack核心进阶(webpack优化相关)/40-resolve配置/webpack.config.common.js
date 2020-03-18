@@ -201,7 +201,10 @@ module.exports = {
         alias: {
             'bootstrapcss': 'bootstrap/dist/css/bootstrap.css'
         },
-        // 指定模块入口的查找顺序
-        mainFields: ['style', 'main']
+        // 指定模块入口的查找顺序（在package.json中）
+        mainFields: ['style', 'main'],
+
+        // 指定导入模块的查找顺序（根据扩展名）
+        extensions: ['.css', '.js', 'json']
     }
 }
