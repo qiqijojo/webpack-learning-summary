@@ -197,6 +197,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash:8].css'
         }),
+        new Webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ],
     resolve: {
         // // 创建 import 或 require 的别名，来确保模块引入变得更简单
