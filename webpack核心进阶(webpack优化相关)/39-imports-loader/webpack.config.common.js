@@ -118,6 +118,7 @@ module.exports = {
                 exclude: /node_modules/,
                 // 以下代码的含义：但凡在js中用到了$就去自动加载jquery
                 // loader: "imports-loader?$=jquery",
+                // 以下代码的含义：修改模块中this的指向
                 loader: "imports-loader?this=>window",
             },
             // 打包iconfont字体图标规则
