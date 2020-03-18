@@ -5,7 +5,42 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const fs = require('fs');
 
+const plugins = [
+    new HtmlWebpackPlugin({
+        // 指定打包的模板，如果不指定，会自动生成一个空的html
+        template: './src/index.html',
+    }),
+    new CleanWebpackPlugin(),
+    new CopyWebpackPlugin([
+        {
+            from: './doc',
+            to: 'doc'
+        }
+    ]),
+    new MiniCssExtractPlugin({
+        filename: 'css/[name].[contenthash:8].css'
+    }),
+    /**
+     * 以下代码的含义：
+     * 在打包moment这个库的时候，将整个local目录都忽略掉
+     */
+    new Webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+];
+const dllPath = path.resolve(__dirname, 'dll');
+const files = fs.readdirSync(dllPath);
+files.forEach((file) => {
+    if (file.endsWith('.js')) {
+        plugins.push(new AddAssetHtmlPlugin({
+            filepath: path.resolve(__dirname, 'dll', file)
+        }))
+    } else if (file.endsWith('.json')) {
+        plugins.push(new Webpack.DllReferencePlugin({
+            manifest: path.resolve(__dirname, 'dll', file)
+        }))
+    }
+})
 module.exports = {
     /**
      * 告诉webpack需要对代码进行分割
@@ -188,33 +223,7 @@ module.exports = {
     /**
      * plugin：告诉webpack需要新增一些什么样的功能
      */
-    plugins: [
-        new HtmlWebpackPlugin({
-            // 指定打包的模板，如果不指定，会自动生成一个空的html
-            template: './src/index.html',
-        }),
-        new AddAssetHtmlPlugin({
-            filepath: path.resolve(__dirname, 'dll/vendors.dll.js')
-        }),
-        new Webpack.DllReferencePlugin({
-            manifest: path.resolve(__dirname, 'dll/vendors.manifest.json')
-        }),
-        new CleanWebpackPlugin(),
-        new CopyWebpackPlugin([
-            {
-                from: './doc',
-                to: 'doc'
-            }
-        ]),
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].[contenthash:8].css'
-        }),
-        /**
-         * 以下代码的含义：
-         * 在打包moment这个库的时候，将整个local目录都忽略掉
-         */
-        new Webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-    ],
+    plugins: plugins,
     resolve: {
         // // 创建 import 或 require 的别名，来确保模块引入变得更简单
         // alias: {
