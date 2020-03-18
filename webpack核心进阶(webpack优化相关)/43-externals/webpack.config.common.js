@@ -213,5 +213,9 @@ module.exports = {
 
         // // 指定导入模块的查找顺序（根据扩展名）
         // extensions: ['.css', '.js', 'json']
+    },
+    externals: {
+        jquery1: 'jQuery',
+        lodash1: '_'
     }
 }
