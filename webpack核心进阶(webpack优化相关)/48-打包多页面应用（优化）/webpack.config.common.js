@@ -8,80 +8,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const fs = require('fs');
 const HappyPack = require('happypack');
 
-const plugins = [
-    new HtmlWebpackPlugin({
-        // 指定打包的模板，如果不指定，会自动生成一个空的html
-        template: './src/index.html',
-        filename: 'index.html',
-        chunks: ['index', 'vendors~index'] // 告诉webpack插入以index、vendors～index开头的文件
-    }),
-    new HtmlWebpackPlugin({
-        // 指定打包的模板，如果不指定，会自动生成一个空的html
-        template: './src/index.html',
-        filename: 'detail.html',
-        chunks: ['detail', 'vendors~detail']
-    }),
-    new CleanWebpackPlugin(),
-    new CopyWebpackPlugin([
-        {
-            from: './doc',
-            to: 'doc'
-        }
-    ]),
-    new MiniCssExtractPlugin({
-        filename: 'css/[name].[contenthash:8].css'
-    }),
-    /**
-     * 以下代码的含义：
-     * 在打包moment这个库的时候，将整个local目录都忽略掉
-     */
-    new Webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new HappyPack({
-        id: 'js',
-        use: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: "babel-loader",
-                options: {
-                    "presets": [["@babel/preset-env", {
-                        targets: {
-                            // "chrome": "14"
-                        },
-                        // useBuiltIns: 'usage' // 只转换使用到的ES6语法
-                    }]],
-                    "plugins": [
-                        ["@babel/plugin-proposal-class-properties", { "loose": true }],
-                        [
-                            "@babel/plugin-transform-runtime",
-                            {
-                                "absoluteRuntime": false,
-                                "corejs": 2, // 目的不让污染全局环境，需要再安装这个corejs包
-                                "helpers": true,
-                                "regenerator": true,
-                                "useESModules": false
-                            }
-                        ]
-                    ]
-                }
-            }
-        ]
-    })
-];
-const dllPath = path.resolve(__dirname, 'dll');
-const files = fs.readdirSync(dllPath);
-files.forEach((file) => {
-    if (file.endsWith('.js')) {
-        plugins.push(new AddAssetHtmlPlugin({
-            filepath: path.resolve(__dirname, 'dll', file)
-        }))
-    } else if (file.endsWith('.json')) {
-        plugins.push(new Webpack.DllReferencePlugin({
-            manifest: path.resolve(__dirname, 'dll', file)
-        }))
-    }
-})
-module.exports = {
+const commonConfig = {
     /**
      * 告诉webpack需要对代码进行分割
      */
@@ -95,7 +22,8 @@ module.exports = {
      */
     entry: {
         index: "./src/js/index.js",
-        detail: "./src/js/detail.js"
+        detail: "./src/js/detail.js",
+        account: "./src/js/account.js"
     },
     /**
      * output: 指定打包之后的文件输出的路径和输出的文件名称
@@ -269,16 +197,79 @@ module.exports = {
     /**
      * plugin：告诉webpack需要新增一些什么样的功能
      */
-    plugins: plugins,
-    resolve: {
-        // // 创建 import 或 require 的别名，来确保模块引入变得更简单
-        // alias: {
-        //     'bootstrapcss': 'bootstrap/dist/css/bootstrap.css'
-        // },
-        // // 指定模块入口的查找顺序（在package.json中）
-        // mainFields: ['style', 'main'],
-
-        // // 指定导入模块的查找顺序（根据扩展名）
-        // extensions: ['.css', '.js', 'json']
-    }
-}
+    // plugins: plugins
+};
+commonConfig.plugins = makePlugins(commonConfig);
+function makePlugins(config) {
+    let plugins = [
+        new CleanWebpackPlugin(),
+        new CopyWebpackPlugin([
+            {
+                from: './doc',
+                to: 'doc'
+            }
+        ]),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].[contenthash:8].css'
+        }),
+        /**
+         * 以下代码的含义：
+         * 在打包moment这个库的时候，将整个local目录都忽略掉
+         */
+        new Webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new HappyPack({
+            id: 'js',
+            use: [
+                {
+                    test: /\.js$/,
+                    exclude: /node_modules/,
+                    loader: "babel-loader",
+                    options: {
+                        "presets": [["@babel/preset-env", {
+                            targets: {
+                                // "chrome": "14"
+                            },
+                            // useBuiltIns: 'usage' // 只转换使用到的ES6语法
+                        }]],
+                        "plugins": [
+                            ["@babel/plugin-proposal-class-properties", { "loose": true }],
+                            [
+                                "@babel/plugin-transform-runtime",
+                                {
+                                    "absoluteRuntime": false,
+                                    "corejs": 2, // 目的不让污染全局环境，需要再安装这个corejs包
+                                    "helpers": true,
+                                    "regenerator": true,
+                                    "useESModules": false
+                                }
+                            ]
+                        ]
+                    }
+                }
+            ]
+        })
+    ];
+    Object.keys(config.entry).forEach((key) => {
+        plugins.push(new HtmlWebpackPlugin({
+            // 指定打包的模板，如果不指定，会自动生成一个空的html
+            template: './src/index.html',
+            filename: key + '.html',
+            chunks: [key, 'vendors~' + key]
+        }));
+    });
+    const dllPath = path.resolve(__dirname, 'dll');
+    const files = fs.readdirSync(dllPath);
+    files.forEach((file) => {
+        if (file.endsWith('.js')) {
+            plugins.push(new AddAssetHtmlPlugin({
+                filepath: path.resolve(__dirname, 'dll', file)
+            }))
+        } else if (file.endsWith('.json')) {
+            plugins.push(new Webpack.DllReferencePlugin({
+                manifest: path.resolve(__dirname, 'dll', file)
+            }))
+        }
+    });
+    return plugins;
+};
+module.exports = commonConfig;
