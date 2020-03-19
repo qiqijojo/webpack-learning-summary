@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const fs = require('fs');
 const HappyPack = require('happypack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const commonConfig = {
     /**
@@ -203,6 +204,7 @@ commonConfig.plugins = makePlugins(commonConfig);
 function makePlugins(config) {
     // 1.固定不变的插件
     let plugins = [
+        new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin([
             {

@@ -1,4 +1,4 @@
-import '../css/detail.css';
+import '../css/account.css';
 import $ from 'jquery';
 import _ from 'lodash';
 
