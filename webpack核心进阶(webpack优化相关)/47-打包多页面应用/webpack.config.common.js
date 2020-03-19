@@ -12,6 +12,14 @@ const plugins = [
     new HtmlWebpackPlugin({
         // 指定打包的模板，如果不指定，会自动生成一个空的html
         template: './src/index.html',
+        filename: 'index.html',
+        chunks: ['index', 'vendors~index'] // 告诉webpack插入以index、vendors～index开头的文件
+    }),
+    new HtmlWebpackPlugin({
+        // 指定打包的模板，如果不指定，会自动生成一个空的html
+        template: './src/index.html',
+        filename: 'detail.html',
+        chunks: ['detail', 'vendors~detail']
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
@@ -86,7 +94,8 @@ module.exports = {
      * entry: 指定需要打包的文件
      */
     entry: {
-        main: "./src/js/index.js"
+        index: "./src/js/index.js",
+        detail: "./src/js/detail.js"
     },
     /**
      * output: 指定打包之后的文件输出的路径和输出的文件名称
