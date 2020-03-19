@@ -15,6 +15,10 @@
 2.1入口还是必须手动指定, 但是创建多少个HtmlWebpackPlugin和
 如何配置HtmlWebpackPlugin可以通过代码动态生成
 也就是原理和动态创建AddAssetHtmlPlugin/DllReferencePlugin一样
+
+总结两条：
+1. 有多个入口，生成的每个html文件里都会引入动态链接库，这应该是正常的。
+2. 今天打包遇到了报错，原因是 创建html插件必须放在dll配置之前，否则会报错，因为先有html，才能将生成的dll文件添加进html中。
 -->
 </body>
 </html>
