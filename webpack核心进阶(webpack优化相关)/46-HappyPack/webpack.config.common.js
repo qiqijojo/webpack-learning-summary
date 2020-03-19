@@ -28,37 +28,37 @@ const plugins = [
      * 在打包moment这个库的时候，将整个local目录都忽略掉
      */
     new Webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    // new HappyPack({
-    //     id: 'js',
-    //     use: [
-    //         {
-    //             test: /\.js$/,
-    //             exclude: /node_modules/,
-    //             loader: "babel-loader",
-    //             options: {
-    //                 "presets": [["@babel/preset-env", {
-    //                     targets: {
-    //                         // "chrome": "14"
-    //                     },
-    //                     // useBuiltIns: 'usage' // 只转换使用到的ES6语法
-    //                 }]],
-    //                 "plugins": [
-    //                     ["@babel/plugin-proposal-class-properties", { "loose": true }],
-    //                     [
-    //                         "@babel/plugin-transform-runtime",
-    //                         {
-    //                             "absoluteRuntime": false,
-    //                             "corejs": 2, // 目的不让污染全局环境，需要再安装这个corejs包
-    //                             "helpers": true,
-    //                             "regenerator": true,
-    //                             "useESModules": false
-    //                         }
-    //                     ]
-    //                 ]
-    //             }
-    //         }
-    //     ]
-    // })
+    new HappyPack({
+        id: 'js',
+        use: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader",
+                options: {
+                    "presets": [["@babel/preset-env", {
+                        targets: {
+                            // "chrome": "14"
+                        },
+                        // useBuiltIns: 'usage' // 只转换使用到的ES6语法
+                    }]],
+                    "plugins": [
+                        ["@babel/plugin-proposal-class-properties", { "loose": true }],
+                        [
+                            "@babel/plugin-transform-runtime",
+                            {
+                                "absoluteRuntime": false,
+                                "corejs": 2, // 目的不让污染全局环境，需要再安装这个corejs包
+                                "helpers": true,
+                                "regenerator": true,
+                                "useESModules": false
+                            }
+                        ]
+                    ]
+                }
+            }
+        ]
+    })
 ];
 const dllPath = path.resolve(__dirname, 'dll');
 const files = fs.readdirSync(dllPath);
@@ -120,38 +120,38 @@ module.exports = {
                     fix: true
                 },
             },
-            打包JS规则
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: "babel-loader",
-                options: {
-                    "presets": [["@babel/preset-env", {
-                        targets: {
-                            // "chrome": "14"
-                        },
-                        // useBuiltIns: 'usage' // 只转换使用到的ES6语法
-                    }]],
-                    "plugins": [
-                        ["@babel/plugin-proposal-class-properties", { "loose": true }],
-                        [
-                            "@babel/plugin-transform-runtime",
-                            {
-                                "absoluteRuntime": false,
-                                "corejs": 2, // 目的不让污染全局环境，需要再安装这个corejs包
-                                "helpers": true,
-                                "regenerator": true,
-                                "useESModules": false
-                            }
-                        ]
-                    ]
-                }
-            },
+            // 打包JS规则
             // {
             //     test: /\.js$/,
             //     exclude: /node_modules/,
-            //     use: 'happypack/loader?id=js'
+            //     loader: "babel-loader",
+            //     options: {
+            //         "presets": [["@babel/preset-env", {
+            //             targets: {
+            //                 // "chrome": "14"
+            //             },
+            //             // useBuiltIns: 'usage' // 只转换使用到的ES6语法
+            //         }]],
+            //         "plugins": [
+            //             ["@babel/plugin-proposal-class-properties", { "loose": true }],
+            //             [
+            //                 "@babel/plugin-transform-runtime",
+            //                 {
+            //                     "absoluteRuntime": false,
+            //                     "corejs": 2, // 目的不让污染全局环境，需要再安装这个corejs包
+            //                     "helpers": true,
+            //                     "regenerator": true,
+            //                     "useESModules": false
+            //                 }
+            //             ]
+            //         ]
+            //     }
             // },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: 'happypack/loader?id=js'
+            },
             // 打包iconfont字体图标规则
             {
                 test: /\.(eot|json|svg|ttf|woff|woff2)$/,
