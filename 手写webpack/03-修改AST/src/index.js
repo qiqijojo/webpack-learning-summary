@@ -1,5 +1,6 @@
 import * as parser from '@babel/parser';
 import traverse from '@babel/traverse';
+import generate from '@babel/generator';
 
 const code = `let sum = 10 + 66;`;
 const ast = parser.parse(code);
@@ -15,3 +16,6 @@ traverse(ast, { // 遍历语法树，走到每一个Node节点，都会进入ent
     }
 })
 console.log('ppp222', ast); // 修改后，ast语法树更新了
+
+const output = generate(ast);
+console.log('output', output);
