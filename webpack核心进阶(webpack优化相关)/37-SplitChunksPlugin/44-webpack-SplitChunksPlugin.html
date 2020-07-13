@@ -13,7 +13,7 @@ webpack在代码分割的时候底层使用的其实是Split-Chunks-Plugin来实
 2.Split-Chunks-Plugin相关配置
 https://www.webpackjs.com/plugins/split-chunks-plugin/
 {
-    chunks: "async", // 对那些代码进行分割 async(只分割异步加载模块)、all(所有导入模块)
+    chunks: "async", // 对哪些代码进行分割 async(只分割异步加载模块)、all(所有导入模块)
     minSize: 30000, // 表示被分割的代码体积至少有多大才分割(单位是字节)
     minChunks: 1,  //  表示至少被引用多少次数才分割，默认为1
     maxAsyncRequests: 5, // 异步加载并发最大请求数(保持默认即可)
