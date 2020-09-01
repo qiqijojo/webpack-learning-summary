@@ -13,7 +13,10 @@ module.exports = {
             {
                 test: /.js$/,
                 use: [{
-                    loader: path.resolve(__dirname, 'loader/replace-loader.js')
+                    loader: path.resolve(__dirname, 'loader/replace-loader.js'),
+                    options: {
+                        name: 'jojo'
+                    }
                 }]
             }
         ]
