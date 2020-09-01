@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "loader-utils": "^2.0.0",
+    "schema-utils": "^2.7.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   }

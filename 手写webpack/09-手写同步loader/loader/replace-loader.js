@@ -1,4 +1,5 @@
 const loaderUtils = require('loader-utils');
+const validateOptions = require('schema-utils');
 /**
  * 
  * @param {*} content 是每个文件的内容
@@ -10,6 +11,16 @@ module.exports = function (content, map, meta) {  // map, meta这两个打印出
     // console.log(this.query)
     // const name = this.query.name;
     const options = loaderUtils.getOptions(this);
+    let schema = {
+        type: "object",
+        properties: {
+            name: {
+                type: "string"
+          }
+        },
+        additionalProperties: false
+    };
+    validateOptions(schema, options, 'replace-loader')
     content = content.replace(/hello/g, options.name)
     return content;
 }
