@@ -20,7 +20,7 @@ module.exports = function (content, map, meta) {  // map, meta这两个打印出
         },
         additionalProperties: false
     };
-    validateOptions(schema, options, 'replace-loader')
+    validateOptions(schema, options, 'replace-loader') // 这个loader的名称无论写什么都会正常运行，没搞懂写这个有什么用。。。
     content = content.replace(/hello/g, options.name)
     return content;
 }
